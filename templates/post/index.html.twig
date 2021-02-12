@@ -24,12 +24,12 @@
             {{ post.user.displayName }},
             {{ post.createdAt | ago }}{{ (post.updatedAt != null)? ', modifié ' ~ post.updatedAt | ago : '' }} - Classé dans {{ post.category.name }}</p>
 
-            {% if app.user.id == post.user.id %}
+            {% if app.user.id is defined and app.user.id == post.user.id %} 
               <p>
                 <a href="{{ path('admin_post_update', {id: post.id}) }}">Modifier l'article</a>
                 <a href="{{ path('admin_post_delete', {id: post.id}) }}">Supprimer l'article</a>
               </p>
-            {% endif %}
+            {% endif %} 
         </div>
         <hr>
 

@@ -1,0 +1,56 @@
+{% extends 'clean.html.twig' %}
+
+{% block title %}Category{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+            <h1>Liste des catégories</h1>
+
+            <a href="{{ path('admin_category_add') }}" class="btn btn-primary">Ajouter</a>
+            <br><br>        
+
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Slug</th>
+                    <th scope="col">Parent</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                    {% for category in categories %}   
+
+                        <tr>
+                            <th scope="row">{{ category.id }}</th>
+                            <td>{{ category.name }}</td>
+                            <td>{{ category.slug }}</td>
+                            <td>{{ category.parent }}</td>
+                            <td>
+                                <a href="" class="btn btn-primary">Modifier</a>
+                                <a href=""  class="btn btn-primary">Supprimer</a>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+
+                </tbody>
+
+
+            
+              </table>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

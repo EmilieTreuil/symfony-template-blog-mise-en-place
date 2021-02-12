@@ -3,14 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Form\PostType;
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Form\PostType;
-
 
 /**
  * @Route("/admin", name="admin_")
@@ -28,6 +28,18 @@ class AdminController extends AbstractController
                 'controller_name' => 'AdminController INDEX',
             ]);
         }
+
+        /**
+        * @Route("/category", name="category")
+        */
+        public function indexCategory(CategoryRepository $categoryRepository): Response
+        {
+            $categories = $categoryRepository->findAll();
+            return $this->render('admin/category/index.html.twig', [
+                'categories' => $categories,
+            ]);
+        }
+
       /**
      * @Route("/category/add", name="category_add")
      */
@@ -49,7 +61,7 @@ class AdminController extends AbstractController
             $em->persist($category);
             // on fait un commit pour valider définitivement
             $em->flush();
-            return $this->redirectToRoute('admin_home');
+            return $this->redirectToRoute('admin_category');
 
         }
         
