@@ -1,0 +1,28 @@
+{% extends 'clean.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+{% block titleHeader %} {{ post.title }}{% endblock %}
+{% block subheading %} <span class="subheading"> Catégorie : {{ post.category.name }} </span>{% endblock %}
+
+{% block authorDateHeader %}
+    <span class="meta">Rédigé par
+        {{ post.user.displayName }}
+        on {{ post.createdAt | ago}}
+    </span>
+{% endblock %}
+
+{% block body %}
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <p>{{ post.content | raw }}</p>
+        </div>
+        {% include 'post/sidebar.html.twig' %}
+      </div>
+    </div>
+</article>
+
+{% endblock %}
