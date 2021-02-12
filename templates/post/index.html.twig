@@ -22,7 +22,14 @@
           </a>
           <p class="post-meta">Rédigé par
             {{ post.user.displayName }},
-            {{ post.createdAt | ago }} - Classé dans {{ post.category.name }}</p>
+            {{ post.createdAt | ago }}{{ (post.updatedAt != null)? ', modifié ' ~ post.updatedAt | ago : '' }} - Classé dans {{ post.category.name }}</p>
+
+            {% if app.user.id == post.user.id %}
+              <p>
+                <a href="{{ path('admin_post_update', {id: post.id}) }}">Modifier l'article</a>
+                <a href="{{ path('admin_post_delete', {id: post.id}) }}">Supprimer l'article</a>
+              </p>
+            {% endif %}
         </div>
         <hr>
 
@@ -34,6 +41,7 @@
           <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
         </div>
       </div>
+      {% include 'post/sidebar.html.twig' %}
     </div>
   </div>
 {% endblock %}

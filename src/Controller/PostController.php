@@ -18,8 +18,15 @@ class PostController extends AbstractController
         $posts = $postRepository->findAll();
         // dd($posts);
 
+        $oldPosts = $postRepository->findOldPosts();
+        // dd($oldPosts);
+
+        $posts = $postRepository->findLastPosts();
+        // dd($posts);
+
         return $this->render('post/index.html.twig', [
             'posts' => $posts,
+            'oldPosts' => $oldPosts,
         ]);
     }
 
@@ -27,10 +34,13 @@ class PostController extends AbstractController
      * Route("/post/{id}", name="post_view", methods={"GET"}, requirements={"id"="\d+"})
      * @Route("/post/{slug}", name="post_view", methods={"GET"})
      */
-    public function post(Post $post): Response
+    public function post(Post $post, PostRepository $postRepository): Response
     {
+        $oldPosts = $postRepository->findOldPosts();
+
         return $this->render('post/post.html.twig', [
-                'post' => $post
+                'post' => $post,
+                'oldPosts' => $oldPosts,
         ]);
     }
 
